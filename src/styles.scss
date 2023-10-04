@@ -1,4 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+/ You can add global styles to this file,
+and also import other style files / html,
+body {
+    height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@import './theme.scss';
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+.login-page {
+    background-color: rgb(249, 243, 249);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+        width: 30%;
+
+        .card-title {
+            color: white;
+            background-color: mat-color($primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px !important;
+            font-size: larger;
+            font-weight: 600;
+        }
+    }
+
+    .form-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: larger;
+        font-weight: 600;
+        color: mat-color($accent);
+        margin: 20px;
+    }
+
+    .submit-button {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        justify-self: center;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    mat-form-field {
+        width: 100%;
+    }
+}
+
+::ng-deep {
+    .mat-mdc-card-header {
+        display: flex;
+        padding: 16px;
+    }
+}

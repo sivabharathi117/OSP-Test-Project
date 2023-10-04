@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: '/dashboard',
+  //   pathMatch: 'full'
+  // },
   {
     path: 'auth',
     loadChildren: () =>
@@ -16,6 +16,15 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomeModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
+  },
+  {
+    path: '**',
+    redirectTo: '/home'
   }
 
 ];

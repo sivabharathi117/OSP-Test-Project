@@ -1,3 +1,3 @@
 export const environment = {
-    baseApiUrl: ''
+    baseApiUrl: 'https://dummyjson.com'
 }

@@ -1,0 +1,25 @@
+.mat-sidenav-container {
+    height: 100%;
+}
+
+::ng-deep .main-content {
+    display: inline-flex;
+    width: 100%;
+    padding: 25px;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    gap: 15px;
+
+    mat-card {
+        width: 100%;
+
+        .container {
+            display: flex;
+
+            .input-container {
+                justify-self: start;
+            }
+        }
+
+    }
+}
