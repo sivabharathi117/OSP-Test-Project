@@ -1,0 +1,32 @@
+<mat-card>
+    <mat-card-header>
+        Patient System
+    </mat-card-header>
+    <mat-card-content>
+        <div>Login to your Account</div>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>User Name</mat-label>
+                    <input matInput formControlName="username" id="username" required />
+                    <mat-error *ngIf="loginForm.controls['username'].errors?.['required']">
+                        Email address is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" id="password" required />
+                    <mat-error *ngIf="loginForm.controls['password'].errors?.['required']">
+                        Password address is required
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.controls['password'].errors?.['minlength']">
+                        Password must be min 6 characters
+                    </mat-error>
+                </mat-form-field>
+                <button mat-flat-button color="primary">
+                    Login
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
