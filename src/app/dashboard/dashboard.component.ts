@@ -26,6 +26,19 @@ export class DashboardComponent {
       state: ['', [Validators.required]],
       zipCode: ['', [Validators.required]]
     });
+
+    this.dashboardService.getPatients().subscribe({
+      next: (response) => {
+        if (response.users.length) {
+          this.dataSource = [...response.users];
+        } else {
+          this.dataSource = [];
+        }
+      },
+      error: (errorResponse) => {
+
+      }
+    })
     const data = {
       id: 1,
       firstName: 'name',
