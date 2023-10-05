@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DashboardService } from './dashboard.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,47 +9,28 @@ import { DashboardService } from './dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  patientForm: FormGroup = new FormGroup({});
-  displayedColumns: string[] = ['firstName', 'lastName', 'address', 'action'];
-  dataSource: any[] = [];
-  isEdit: boolean = false;
-  constructor(private fb: FormBuilder, private dashboardService: DashboardService) { }
+  public userDetails: any;
 
-  ngOnInit() {
-    this.patientForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      address1: ['', [Validators.required]],
-      address2: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      zipCode: ['', [Validators.required]]
+  constructor(private router: Router, private dialog: MatDialog) {
+    this.userDetails = JSON.parse(localStorage.getItem('userDetails') || '{}');
+  }
+
+  public logout(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        confirmButtonText: 'Logout',
+        confirmationMessage: 'Are you sure want to logout?',
+        confirmationTitle: 'Confirm Logout'
+      }
     });
 
-    this.dashboardService.getPatients().subscribe({
-      next: (response) => {
-        if (response.users.length) {
-          this.dataSource = [...response.users];
-        } else {
-          this.dataSource = [];
-        }
-      },
-      error: (errorResponse) => {
-
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        localStorage.clear();
+        this.router.navigate(['/auth/login'])
       }
-    })
-    const data = {
-      id: 1,
-      firstName: 'name',
-      lastName: 'last',
-      address: 'dfkjbhdfkj'
-    }
-    this.dataSource.push(data);
-  }
-
-  submit() {
+    });
 
   }
+
 }

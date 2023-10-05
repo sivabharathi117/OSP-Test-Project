@@ -5,12 +5,22 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    font-size: small !important
 }
 
 @import './theme.scss';
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
+
+:root {
+    --mdc-shape-small: 30px;
+
+}
+
+.mat-mdc-card {
+    box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.3) !important;
+}
 
 .login-page {
     background-color: rgb(249, 243, 249);
@@ -21,6 +31,7 @@ $accent: map-get($theme, accent);
 
     .card {
         width: 30%;
+        border-radius: 10px;
 
         .card-title {
             color: white;
@@ -31,6 +42,12 @@ $accent: map-get($theme, accent);
             padding: 16px !important;
             font-size: larger;
             font-weight: 600;
+            border-radius: 10px 10px 0 0;
+            gap: 10px;
+        }
+
+        .card-body {
+            padding: 0 50px 50px;
         }
     }
 
@@ -45,10 +62,9 @@ $accent: map-get($theme, accent);
     }
 
     .submit-button {
-        display: flex;
-        align-self: center;
-        justify-content: center;
-        justify-self: center;
+        display: block;
+        width: 100%;
+        border-radius: 30px;
     }
 
     .form-actions {
@@ -56,14 +72,39 @@ $accent: map-get($theme, accent);
         justify-content: center;
     }
 
+    .mat-mdc-checkbox label {
+        font-size: 14px;
+        color: rgb(134, 134, 134);
+        padding-left: 0px;
+    }
+
+    .mat-mdc-form-field-flex {
+        height: 40px;
+
+        .mat-mdc-form-field-infix {
+            padding: 8px 0 8px 0 !important;
+        }
+    }
+
     mat-form-field {
         width: 100%;
     }
 }
 
-::ng-deep {
-    .mat-mdc-card-header {
-        display: flex;
-        padding: 16px;
-    }
+.text-primary {
+    color: #495a84 !important;
+}
+
+.mat-mdc-form-field-error-wrapper {
+    padding: 0 !important;
+}
+
+
+.mdc-text-field--outlined {
+    --mdc-outlined-text-field-outline-color: rgb(230, 230, 230);
+}
+
+.snack-bar-error-style {
+    --mdc-snackbar-container-color: #981313 !important;
+    color: white;
 }

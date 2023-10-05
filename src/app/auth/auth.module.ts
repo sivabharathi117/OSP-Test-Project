@@ -5,6 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { MaterialLibModule } from '../modules/material-lib.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { LoginComponent } from './components/login/login.component';
     CommonModule,
     AuthRoutingModule,
     MaterialLibModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ]
 })
 export class AuthModule { }

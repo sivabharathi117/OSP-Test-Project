@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'OSP-angular-assessment';
   routeUrl: string = '';
-  constructor(private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(private router: Router) {
 
   };
   ngOnInit() {
-    const token = localStorage.getItem('token');
-    this.routeUrl = window.location.pathname;
-    console.log(this.activeRoute)
-    if (token) {
-      this.router.navigate([this.routeUrl])
-    } else {
-      // this.router.navigate(['/home'])
-    }
+
   };
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,33 +12,42 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup = new FormGroup({});
-  rememberMe: boolean = false;
-  loginError: string = '';
+  public loginForm: FormGroup = new FormGroup({});
+  public rememberMe: boolean = false;
+  public loginError: string = '';
+  public disableSubmit: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private spinner: NgxSpinnerService) { }
   ngOnInit() {
-    this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9!@#$%^&*]{6,16}$')]]
-    });
-
-    this.loginForm.valueChanges.subscribe(() => {
-      this.loginError = '';
-    });
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.router.navigate(['/dashboard'])
+    } else {
+      this.loginForm = this.fb.group({
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9!@#$%^&*]{6,16}$')]]
+      });
+    }
   }
 
-  login() {
+  public login(): void {
+    this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
+      this.disableSubmit = true;
+      this.spinner.show();
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
+          this.spinner.hide();
           if (response.id && response.token) {
             localStorage.setItem('userDetails', JSON.stringify(response));
-            // this.router.navigate(['/dashboard'])
+            localStorage.setItem('token', response.token)
+            this.router.navigate(['/dashboard'])
           }
         },
         error: (errorResponse) => {
+          this.spinner.hide();
           this.loginError = errorResponse.error?.message || 'Something went wrong';
+          this.disableSubmit = false;
         }
       })
     }

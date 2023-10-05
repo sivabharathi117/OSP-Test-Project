@@ -1,25 +1,69 @@
-.mat-sidenav-container {
-    height: 100%;
+.header {
+    background-color: white;
+    color: #6a1b9a;
+    border-radius: 25px;
+    padding-inline: 16px;
+    font-size: 15px;
 }
 
-::ng-deep .main-content {
-    display: inline-flex;
-    width: 100%;
-    padding: 25px;
-    justify-content: space-evenly;
-    box-sizing: border-box;
-    gap: 15px;
+.toggle-button {
+    display: flex;
+    flex-grow: 1;
+}
 
-    mat-card {
-        width: 100%;
+mat-sidenav {
+    padding: 20px 5px;
 
-        .container {
-            display: flex;
-
-            .input-container {
-                // justify-self: start;
-            }
-        }
-
+    .menu-item {
+        font-size: small;
+        cursor: pointer;
     }
+}
+
+.profile-container {
+    margin-bottom: 10px;
+    text-align: center;
+
+    img {
+        max-width: 80px;
+        max-height: 80px;
+        border-radius: 50%;
+    }
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 20px;
+    margin: 5px 0;
+
+    &.selected {
+        background-image: linear-gradient(to right, #2d68d1, #64359a);
+        border-radius: 0 20px 20px 0;
+        color: #fff;
+        box-shadow: 0 0 5px 5px rgb(228, 228, 228);
+    }
+}
+
+.mat-drawer.mat-drawer-side {
+    width: 12%;
+}
+
+.mail-icon,
+.notification-icon {
+    position: relative;
+}
+
+.mail-icon::after,
+.notification-icon::after {
+    content: '';
+    position: absolute;
+    background: #ff0042;
+    width: 7px;
+    z-index: 99;
+    top: 11px;
+    height: 7px;
+    right: 11px;
+    border-radius: 50px;
 }

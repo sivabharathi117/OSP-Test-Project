@@ -1,0 +1,169 @@
+<mat-toolbar class="text-primary">Patient Dashboard</mat-toolbar>
+<div class="main-content">
+    <mat-card class="patient-details">
+        <mat-card-header>
+            <mat-card-title> Patient Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="patientForm" #form="ngForm">
+                <div class="container">
+                    <div class="input-container">
+                        <label> First Name</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="firstName" id="firstName" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['firstName'].errors?.['required']">
+                                First Name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <label> Last Name</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="lastName" id="lastName" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['lastName'].errors?.['required']">
+                                Last Name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <label>Phone</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="phone" id="phone" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['phone'].errors?.['required']">
+                                Phone number is required
+                            </mat-error>
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['phone'].errors?.['pattern']">
+                                Enter country code & number
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="input-container">
+                        <label>Email</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="email" id="email" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['email'].errors?.['required']">
+                                Email is required
+                            </mat-error>
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['email'].errors?.['email']">
+                                Please enter valid Email
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <label> Address Line 1</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="address1" id="address1" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['address1'].errors?.['required']">
+                                Address Line 1 is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <label>Address Line 2</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="address2" id="address2" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['address2'].errors?.['required']">
+                                Address Line 2 is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="input-container">
+                        <label> City</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="city" id="city" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['city'].errors?.['required']">
+                                City is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <label>State</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="state" id="state" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['state'].errors?.['required']">
+                                State is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <label> Zipcode</label>
+                        <mat-form-field appearance="outline">
+
+                            <input matInput formControlName="zipCode" id="zipCode" required />
+                            <mat-error *ngIf="isSubmitted && patientForm.controls['zipCode'].errors?.['required']">
+                                Zipcode is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <button mat-flat-button color="primary" type="button" class="submit-button" (click)="submit()">
+                    {{ isEdit ? 'Update' : 'Add'}}
+                </button>
+                <button type="button" mat-raised-button (click)="cancel()">
+                    Cancel
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Patient List</mat-card-title>
+            <mat-form-field appearance="outline" id="search">
+                <input id="searchInput" matInput [(ngModel)]="searchValue" #searchInput
+                    (input)="search(searchInput.value)" placeholder="Search by First Name" />
+            </mat-form-field>
+        </mat-card-header>
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource" class="patient-table">
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef> First Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef> Address </th>
+                    <td mat-cell *matCellDef="let element"> {{element.address.address}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="action-button">
+                            <!-- <button mat-mini-fab color="primary" >
+                                <mat-icon>visibility</mat-icon>
+                            </button> -->
+                            <button mat-mini-fab color="primary" (click)="editPatient(element)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-mini-fab color="primary" (click)="deletePatient(element.id)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-mdc-row" *matNoDataRow>
+                    <td colspan="9999">
+                        <div class="no-data">No data available</div>
+                    </td>
+                </tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>

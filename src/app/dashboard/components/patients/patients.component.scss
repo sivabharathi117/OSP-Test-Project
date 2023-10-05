@@ -1,0 +1,101 @@
+.patient-table {
+    .mat-mdc-header-row {
+        height: 30px;
+        font-size: small;
+        background-color: rgb(221, 219, 219);
+    }
+
+    .mat-mdc-row {
+        height: 35px;
+        font-size: smaller;
+    }
+
+    .mat-mdc-row:last-child {
+        .mat-mdc-cell {
+            border-bottom: 1px solid rgb(0, 0, 0, .12);
+        }
+    }
+
+    .action-button {
+        display: flex;
+        justify-content: space-around;
+
+        .mdc-fab--mini {
+            width: 18px;
+            height: 18px;
+
+            mat-icon {
+                font-size: 12px;
+                width: 13px;
+                height: 13px;
+            }
+        }
+    }
+
+    .no-data {
+        text-align: center;
+    }
+}
+
+::ng-deep .main-content {
+    display: inline-flex;
+    width: 100%;
+    padding: 25px;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    gap: 15px;
+
+    .patient-details {
+        height: fit-content;
+
+        .mat-mdc-form-field {
+            width: 80%;
+        }
+    }
+
+    mat-card {
+        width: 50%;
+
+        .container {
+            display: flex;
+        }
+    }
+
+    .mat-mdc-card-header {
+        justify-content: space-between;
+        padding-bottom: 10px;
+
+        .mat-mdc-card-title {
+            color: #495a84;
+        }
+    }
+
+    .mat-mdc-form-field-flex {
+        height: 35px;
+
+        .mat-mdc-form-field-infix {
+            padding: 8px 0 8px 0;
+        }
+    }
+
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        padding-right: 10px;
+    }
+
+    .submit-button {
+        margin-right: 10px;
+    }
+
+    input {
+        font-size: small !important;
+    }
+
+}
+
+#searchInput::placeholder {
+    color: rgb(153, 153, 153);
+    font-size: smaller;
+    align-items: center;
+}
